@@ -1,4 +1,19 @@
-// Versión 2: DOM y eventos
+// Versión 3: DOM, eventos, clases y objetos
+class Tarea {
+  constructor(nombre, completada = false) {
+    this.nombre = nombre;
+    this.completada = completada;
+  }
+
+  cambiarEstado() {
+    this.completada = !this.completada;
+  }
+
+  descripcion() {
+    return this.nombre;
+  }
+}
+
 const titulo = document.querySelector("#titulo");
 const formulario = document.querySelector("#formTarea");
 const nombreTarea = document.querySelector("#nombreTarea");
@@ -9,47 +24,54 @@ const resumen = document.querySelector("#resumen");
 
 titulo.textContent = "Mi lista de tareas";
 
-function actualizarResumen() {
-  resumen.textContent =
-    "Total de tareas: " + listaTareas.children.length;
-}
+const tareas = [
+  new Tarea("Estudiar JavaScript"),
+  new Tarea("Completar el laboratorio")
+];
 
-function agregarTarea(nombre) {
-  const li = document.createElement("li");
+function mostrarTareas() {
+  listaTareas.textContent = "";
 
-  const texto = document.createElement("span");
-  texto.textContent = nombre + " ";
+  tareas.forEach((tarea) => {
+    const li = document.createElement("li");
 
-  const completar = document.createElement("button");
-  completar.type = "button";
-  completar.textContent = "Completar";
+    const texto = document.createElement("span");
+    texto.textContent = tarea.descripcion() + " ";
+    texto.classList.toggle("completada", tarea.completada);
 
-  completar.addEventListener("click", () => {
-    texto.classList.toggle("completada");
-    completar.textContent = texto.classList.contains("completada")
+    const completar = document.createElement("button");
+    completar.type = "button";
+    completar.textContent = tarea.completada
       ? "Desmarcar"
       : "Completar";
+
+    completar.addEventListener("click", () => {
+      tarea.cambiarEstado();
+      mostrarTareas();
+    });
+
+    const borrar = document.createElement("button");
+    borrar.type = "button";
+    borrar.textContent = "Borrar";
+
+    borrar.addEventListener("click", () => {
+      const posicion = tareas.indexOf(tarea);
+      tareas.splice(posicion, 1);
+      mostrarTareas();
+    });
+
+    li.appendChild(texto);
+    li.appendChild(completar);
+    li.appendChild(borrar);
+    listaTareas.appendChild(li);
   });
 
-  const borrar = document.createElement("button");
-  borrar.type = "button";
-  borrar.textContent = "Borrar";
+  const completadas = tareas.filter((tarea) => tarea.completada).length;
 
-  borrar.addEventListener("click", () => {
-    li.remove();
-    actualizarResumen();
-  });
-
-  li.appendChild(texto);
-  li.appendChild(completar);
-  li.appendChild(borrar);
-  listaTareas.appendChild(li);
-
-  actualizarResumen();
+  resumen.textContent =
+    "Total de tareas: " + tareas.length +
+    " | Completadas: " + completadas;
 }
-
-agregarTarea("Estudiar JavaScript");
-agregarTarea("Completar el laboratorio");
 
 nombreTarea.addEventListener("input", () => {
   vistaPrevia.textContent = "Escribiendo: " + nombreTarea.value;
@@ -67,10 +89,13 @@ formulario.addEventListener("submit", (evento) => {
     return;
   }
 
-  agregarTarea(nombre);
+  tareas.push(new Tarea(nombre));
+  mostrarTareas();
 
   mensaje.textContent = "Tarea agregada.";
   mensaje.classList.remove("error");
   formulario.reset();
   vistaPrevia.textContent = "";
 });
+
+mostrarTareas();
