@@ -47,3 +47,16 @@ La clase me permitió crear productos con la misma estructura sin repetir códig
 Pude agregar el monitor a la lista sin modificar el HTML.
 
 ## Ejercicio 6: DOM, eventos y objetos juntos
+
+| Prueba | Total que muestra la página | Correcto (Sí/No) |
+|---|---|---|
+| Cuaderno 12.50 | Pendiente | Pendiente |
+| + Lapicero 3.20 | Pendiente | Pendiente |
+| + Mochila 89.90 | Pendiente | Pendiente |
+| Sin Number() | Pendiente | Pendiente |
+
+| Pieza | Línea de tu código donde aparece | Para qué sirve |
+|---|---|---|
+| DOM | listaCarrito.appendChild(li); | Muestra el producto en la página. |
+| Evento | formProducto.addEventListener("submit", ...) | Ejecuta el código al enviar el formulario. |
+| Objeto | const carrito = new Carrito(); | Guarda los productos y calcula el total. |
