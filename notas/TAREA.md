@@ -230,15 +230,39 @@ formulario.addEventListener("submit", (evento) => {
 
 mostrarTareas();
 ```
+Creé la clase Tarea con los atributos nombre y completada, y los
+métodos cambiarEstado() y descripcion().
+
+Lo hice para guardar el nombre y el estado de cada tarea en un objeto.
+Ahora la lista se genera desde esos objetos y muestra cuántas tareas
+están completadas.
 
 ## Dónde uso DOM, eventos y objetos
 
-Pendiente.
+| Parte | Código | Para qué sirve |
+|---|---|---|
+| DOM | document.createElement("li") | Crea el elemento de cada tarea. |
+| DOM | listaTareas.appendChild(li) | Muestra la tarea en la página. |
+| Evento input | nombreTarea.addEventListener("input", ...) | Muestra lo que escribo. |
+| Evento submit | formulario.addEventListener("submit", ...) | Valida y agrega una tarea. |
+| Evento click | completar.addEventListener("click", ...) | Marca o desmarca una tarea. |
+| Objeto | new Tarea(nombre) | Guarda el nombre y el estado de una tarea. |
 
 ## Pruebas realizadas
 
-Pendiente.
+| Acción | Resultado esperado | Resultado obtenido | Cumple (Sí/No) |
+|---|---|---|---|
+| Escribir una tarea | Aparece la vista previa. | Por comprobar | Por comprobar |
+| Agregar una tarea | Aparece en la lista y aumenta el total. | Por comprobar | Por comprobar |
+| Enviar el campo vacío | Aparece un mensaje rojo. | Por comprobar | Por comprobar |
+| Enviar solo espacios | No agrega la tarea y muestra un error. | Por comprobar | Por comprobar |
+| Pulsar Completar | Tacha la tarea y aumenta las completadas. | Por comprobar | Por comprobar |
+| Pulsar Desmarcar | Quita el tachado y disminuye las completadas. | Por comprobar | Por comprobar |
+| Pulsar Borrar | Elimina la tarea y disminuye el total. | Por comprobar | Por comprobar |
 
 ## Por qué diseñé así mi clase
 
-Pendiente.
+Usé nombre para identificar la tarea y completada para guardar su
+estado. El método cambiarEstado() permite marcarla o desmarcarla,
+y descripcion() devuelve el texto que muestro en la página.
+Así cada objeto guarda los datos y el comportamiento de una tarea.
